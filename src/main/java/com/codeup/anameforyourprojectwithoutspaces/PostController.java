@@ -1,3 +1,5 @@
+package com.codeup.anameforyourprojectwithoutspaces;
+
 import org.springframework.web.bind.annotation.*;
 
 public class PostController {
