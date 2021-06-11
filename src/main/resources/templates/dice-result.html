@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dice Result</title>
+</head>
+<body>
+    <div>
+        <p>Your number: <span th:text="${number}"></span></p>
+        <p>Correct number: <span th:text="${random}"></span></p>
+    </div>
+    <div th:if="${number == random}">
+        <p>You win!</p>
+    </div>
+    <div th:if="${number != random}">
+        <p>You lost!</p>
+    </div>
+</body>
+</html>
