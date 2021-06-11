@@ -1,8 +1,16 @@
 package com.codeup.anameforyourprojectwithoutspaces;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-public class PostController {
+public class PostController<postRepository> {
+
+    private final postRepository postDao;
+
+    public PostController(postRepository postDao) {
+
+        this.postDao = postDao;
+    }
 
     @GetMapping(path= "/posts")
     @ResponseBody
@@ -26,6 +34,12 @@ public class PostController {
     @ResponseBody
     public String postCreate() {
         return "create a new post";
+    }
+
+    @PostMapping(path="/posts")
+    @ResponseBody
+    public String postPost(@RequestParam(name="post") String post, Model model) {
+        return "post";
     }
 
 }
