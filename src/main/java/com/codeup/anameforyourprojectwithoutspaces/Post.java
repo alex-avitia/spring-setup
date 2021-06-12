@@ -1,44 +1,31 @@
 package com.codeup.anameforyourprojectwithoutspaces;
 
 
+import jdk.jfr.Name;
+
 import javax.persistence.*;
 
-@Entity
-@Table(name="not_a_table")
 public class Post {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private String title;
+    private String body;
 
-    @Column(nullable = false)
-    private String table_leg1;
-
-    @Column(nullable = false)
-    private String table_leg2;
 }
 
-public long getId() {
-    return id;
+public String getTitle() {
+    return title;
 }
 
-public void setId(long id) {
-    this.id = id;
+public void setTitle(String title) {
+    this.title = title;
 }
 
-public String getTable_leg1() {
-    return table_leg1;
+public String getBody() {
+
 }
 
-public void setTable_leg1(String table_leg1) {
-    this.table_leg1 = table_leg1;
+public void setBody(String body) {
+    this.body = body;
 }
 
-    public String getTable_leg2() {
-        return table_leg2;
-    }
-
-    public void setTable_leg2(String table_leg2) {
-        this.table_leg2 = table_leg2;
-    }
 }
