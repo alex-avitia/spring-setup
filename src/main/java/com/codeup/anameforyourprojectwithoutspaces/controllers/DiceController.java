@@ -1,4 +1,4 @@
-package com.codeup.anameforyourprojectwithoutspaces.springblog;
+package com.codeup.anameforyourprojectwithoutspaces.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

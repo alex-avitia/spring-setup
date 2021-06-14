@@ -1,4 +1,4 @@
-package com.codeup.anameforyourprojectwithoutspaces;
+package com.codeup.anameforyourprojectwithoutspaces.models;
 
 import javax.persistence.*;
 

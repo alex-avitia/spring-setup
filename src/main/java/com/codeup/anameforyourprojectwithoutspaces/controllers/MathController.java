@@ -1,4 +1,4 @@
-package com.codeup.anameforyourprojectwithoutspaces;
+package com.codeup.anameforyourprojectwithoutspaces.controllers;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
