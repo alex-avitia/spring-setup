@@ -3,6 +3,7 @@ package com.codeup.anameforyourprojectwithoutspaces.controllers;
 import com.codeup.anameforyourprojectwithoutspaces.daos.PostRepository;
 import com.codeup.anameforyourprojectwithoutspaces.daos.UsersRepository;
 import com.codeup.anameforyourprojectwithoutspaces.models.Post;
+import com.codeup.anameforyourprojectwithoutspaces.models.User;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,16 +34,53 @@ public class PostController {
         return "posts/show";
     }
 
-    @RequestMapping(name = "/posts/create", method = RequestMethod.GET)
-    @ResponseBody
-    public String getCreate() {
-        return "view the form for creating a post";
+    @GetMapping("/posts/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
     }
 
-    @RequestMapping(name = "/posts/create", method = RequestMethod.POST)
+    @PostMapping("/posts/create")
+    public String save(@ModelAttribute Post post){
+        User user = usersDao.getById(1L);
+        post.setOwner(user);
+        Post savedPost = postDao.save(post);
+        return "redirect:/posts/" + savedPost.getId();
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String showEditForm(Model model, @PathVariable long id){
+        Post postToEdit = postDao.getById(id);
+        model.addAttribute("post", postToEdit);
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
     @ResponseBody
-    public String postCreate() {
-        return "create a new post";
+    public String update(@PathVariable long id,
+                         @RequestParam(name = "title") String title,
+                         @RequestParam(name = "description") String description){
+        // find post
+        Post foundPost = postDao.getById(id);
+        // edit post
+        foundPost.setTitle(title);
+        foundPost.setDescription(description);
+        // save changes
+        postDao.save(foundPost);
+        return "post updated";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String destroy(@PathVariable long id){
+        postDao.deleteById(id);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/search")
+    public String searchResults(Model model, @RequestParam(name = "term") String term){
+        List<Post> posts = postDao.searchByTitle(term);
+        model.addAttribute("posts", posts);
+        return "posts/index";
     }
 
 }
