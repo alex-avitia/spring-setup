@@ -36,8 +36,13 @@ public class PostController {
 
     @GetMapping("/posts/create")
     public String showCreateForm(Model model) {
-        model.addAttribute("post", new Post());
+        model.addAttribute("newPost", new Post());
         return "posts/create";
+    }
+
+    @GetMapping("/redirect-me")
+    public String redirect() {
+        return "redirect:/about";
     }
 
     @PostMapping("/posts/create")
