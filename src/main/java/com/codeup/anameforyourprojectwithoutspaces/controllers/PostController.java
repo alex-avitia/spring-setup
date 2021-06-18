@@ -2,22 +2,28 @@ package com.codeup.anameforyourprojectwithoutspaces.controllers;
 
 import com.codeup.anameforyourprojectwithoutspaces.daos.PostRepository;
 import com.codeup.anameforyourprojectwithoutspaces.daos.UsersRepository;
+import com.codeup.anameforyourprojectwithoutspaces.models.EmailService;
 import com.codeup.anameforyourprojectwithoutspaces.models.Post;
 import com.codeup.anameforyourprojectwithoutspaces.models.User;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Controller
 public class PostController {
 
     private PostRepository postDao;
     private UsersRepository usersDao;
+    private final EmailService emailService;
 
-    public PostController(PostRepository postRepository, UsersRepository usersRepository){
+    public PostController(PostRepository postRepository, UsersRepository usersRepository, EmailService emailService){
         postDao = postRepository;
         usersDao = usersRepository;
+        this.emailService = emailService;
     }
+
 
     @GetMapping("/posts")
     public String index(Model model){
@@ -46,10 +52,11 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    public String save(@ModelAttribute Post post){
+    public String save(@ModelAttribute Post newPost){
+        emailService.prepareAndSend(newPost, "[SUBJECT LINE SAMPLE TEXT]", String.format("[BODY %s %s]", newPost.getTitle(), newPost.getDescription()));
         User user = usersDao.getById(1L);
-        post.setOwner(user);
-        Post savedPost = postDao.save(post);
+        newPost.setOwner(user);
+        Post savedPost = postDao.save(newPost);
         return "redirect:/posts/" + savedPost.getId();
     }
 

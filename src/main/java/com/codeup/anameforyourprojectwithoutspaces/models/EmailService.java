@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class EmailService {
 
     @Autowired
-    public JavaMailSender emailSender;
+    public JavaMailSender emailService;
 
     @Value("${spring.mail.from}")
     private String from;
@@ -24,7 +24,7 @@ public class EmailService {
         msg.setText(body);
 
         try{
-            this.emailSender.send(msg);
+            this.emailService.send(msg);
         }
         catch (MailException ex) {
             // simply log it and go on...
