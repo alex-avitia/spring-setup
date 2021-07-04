@@ -88,11 +88,11 @@ public class PostController {
         return "redirect:/posts";
     }
 
-    @GetMapping("/search")
-    public String searchResults(Model model, @RequestParam(name = "term") String term){
-        List<Post> posts = postDao.searchByTitle(term);
-        model.addAttribute("posts", posts);
-        return "posts/index";
-    }
+//    @GetMapping("/search")
+//    public String searchResults(Model model, @RequestParam(name = "term") String term){
+//        List<Post> posts = postDao.searchByTitle(term);
+//        model.addAttribute("posts", posts);
+//        return "posts/index";
+//    }
 
 }
